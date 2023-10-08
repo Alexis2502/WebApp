@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WebApp</title>
+</head>
+<body>
+<h1>Add Your Note:</h1>
+<form method="post" th:action="@{/notes}" th:object="${note}">
+    <div>
+        <label>Importance:</label>
+        <select name="importanceEnum">
+            <option th:each="ImportanceOpt : ${T(com.example.WebApp.ImportanceEnum).values()}"
+                    th:value="${ImportanceOpt}" th:text="${ImportanceOpt}"></option>
+        </select>
+    </div>
+    <div>
+        <label>Your note:</label>
+        <input type="text" th:field="*{text}" id="inputText">
+    </div>
+    <div>
+        <button>Add</button>
+    </div>
+</form>
+
+    <h1>Here are your notes:</h1>
+    <tabel>
+        <thead>
+        <tr>
+            <td>Importance</td>
+            <td>Note</td>
+            <td>Timestamp</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="existingNotes: ${existingNotes} ">
+            <br/>
+            <td th:utext="${existingNotes.importanceEnum}"/>
+            <td th:utext="${existingNotes.text}"/>
+            <td th:utext="${existingNotes.timestamp}"/>
+        </tr>
+        </tbody>
+    </tabel>
+</body>
+</html>
